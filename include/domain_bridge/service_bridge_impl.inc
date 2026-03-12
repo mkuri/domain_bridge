@@ -103,7 +103,7 @@ DomainBridge::bridge_service(
   // Create a client for the 'from_domain'
   auto client = from_domain_node->create_client<ServiceT>(
     resolved_service_name,
-    rclcpp::ServicesQoS{},
+    rmw_qos_profile_services_default,
     options.callback_group());
 
   auto handle_request =
@@ -137,7 +137,7 @@ DomainBridge::bridge_service(
     return to_domain_node->create_service<ServiceT>(
       service_remapped,
       handle_request,
-      rclcpp::ServicesQoS{},
+      rmw_qos_profile_services_default,
       options.callback_group());
   };
 
