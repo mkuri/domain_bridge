@@ -299,6 +299,15 @@ process_cmd_line_arguments(const std::vector<std::string> & args)
         topic_option_pair.second.auto_remove(auto_remove_enum);
       }
     }
+    // Note: wait_for_subscription, wait_for_publisher and auto_remove do not apply to services.
+    for (auto & service_option_pair : domain_bridge_config.services) {
+      if (from_domain_id) {
+        service_option_pair.first.from_domain_id = *from_domain_id;
+      }
+      if (to_domain_id) {
+        service_option_pair.first.to_domain_id = *to_domain_id;
+      }
+    }
   }
   if (mode) {
     domain_bridge_config.options.mode(*mode);
